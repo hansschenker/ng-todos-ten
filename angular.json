@@ -27,7 +27,8 @@
           "skipTests": true
         },
         "@schematics/angular:module": {
-          "skipTests": true
+          "skipTests": true,
+          "module": "app"
         },
         "@schematics/angular:pipe": {
           "skipTests": true

@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from "@angular/core";
-import { Observable, Subject, merge } from "rxjs";
+import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
 import { map, scan } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
@@ -19,6 +19,7 @@ interface Link {
 interface LinkViewModel {
   links: Link[];
   selectedLink?: Link;
+  currentId: number;
 }
 
 @Component({
@@ -31,64 +32,70 @@ export class LinksReactiveComponent {
   private baseUrl = environment.baseUrl;
 
   public vm$: Observable<LinkViewModel>;
-  // record state actions
-  public addLinkState = new Subject<Link>();
-  public deleteLinkState = new Subject<Link>();
-  public detailLinkState = new Subject<Link>();
-  public closeDetailState = new Subject();
+  // record states
+  public idState = new BehaviorSubject<number>(0);
+  public addState = new Subject<Link>();
+  public deleteState = new Subject<Link>();
+  public detailState = new Subject<Link>();
+  public detailCloseState = new Subject();
 
   constructor(private http: HttpClient, private svc: LinkDataService) {
+    // merge update sources
     this.vm$ = merge(
-      this.getLinksUpdate$,
-      this.addLinkUpdate$,
-      this.deleteLinkUpdate$,
-      this.detailLinkUpdate$,
-      this.closeDetailUpdate$
+      this.getAllUpdate$,
+      this.idUpdate$,
+      this.addUpdate$,
+      this.deleteUpdate$,
+      this.detailUpdate$,
+      this.detailCloseUpdate$
     ).pipe(
       scan(
         (
           oldVm: LinkViewModel,
-          mutateFn: (vm: LinkViewModel) => LinkViewModel
-        ) => mutateFn(oldVm),
+          updateFn: (vm: LinkViewModel) => LinkViewModel
+        ) => updateFn(oldVm),
         { links: [] } as LinkViewModel
       )
     );
   } // constructor
 
-  // get links action
-  private getLinksUpdate$ = this.svc
-    .getLinks()
-    .pipe(map((links) => (vm: LinkViewModel) => ({ ...vm, links })));
-
-  // add link event
-  addLink(link: Link) {
-    this.addLinkState.next(link);
-  }
-  private addLinkUpdate$ = this.addLinkState.pipe(
-    map((link) => (vm: LinkViewModel) => ({
+  // all update
+  private getAllUpdate$ = this.svc.getAll().pipe(
+    map((links) => (vm: LinkViewModel) => ({
       ...vm,
-      links: [
-        ...vm.links,
-        { id: vm.links.length ? vm.links.length + 1 : 1, title: link.title },
-      ],
+      links,
+      currentId: links.length,
     }))
   );
-  // delete link event
-  deleteLink(link: Link) {
-    this.deleteLinkState.next(link);
-  }
-  // delete link action
-  private deleteLinkUpdate$ = this.deleteLinkState.pipe(
+
+  // id update
+  private idUpdate$ = this.idState.pipe(
+    map((id) => (vm: LinkViewModel) => ({
+      ...vm,
+      currentId: vm.currentId + id,
+    }))
+  );
+
+  // add update
+  private addUpdate$ = this.addState.pipe(
+    map((link) => (vm: LinkViewModel) => ({
+      ...vm,
+      links: [...vm.links, { id: vm.currentId, title: link.title }],
+    }))
+  );
+
+  // delete update
+  private deleteUpdate$ = this.deleteState.pipe(
     map((link) => (vm: LinkViewModel) => ({
       ...vm,
       links: vm.links.filter((l) => l.title !== link.title),
     }))
   );
-
-  private detailLinkUpdate$ = this.detailLinkState.pipe(
+  // detail update
+  private detailUpdate$ = this.detailState.pipe(
     map((selectedLink) => (vm: LinkViewModel) => ({ ...vm, selectedLink }))
   );
-  private closeDetailUpdate$ = this.closeDetailState.pipe(
+  private detailCloseUpdate$ = this.detailCloseState.pipe(
     map((_) => (vm: LinkViewModel) => ({ ...vm, selectedLink: null }))
   );
 } // class

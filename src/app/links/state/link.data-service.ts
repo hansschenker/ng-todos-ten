@@ -14,8 +14,8 @@ export class LinkDataService {
   constructor(private http: HttpClient) {
     //this.links$.pipe(tap((ls) => console.log("links:", ls)));
   }
-  getLinks() {
-    console.log("svc.getLinks:");
+  getAll() {
+    console.log("svc.getAll:");
     return this.http.get<Link[]>(this.baseUrl + "/links");
   }
 }

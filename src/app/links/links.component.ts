@@ -42,8 +42,8 @@ export class LinksComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public svc: LinkDataService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.links$ = this.svc.getLinks();
-    console.log("links svc call:", this.links$);
+    this.links$ = this.svc.getAll();
+    console.log("links svc getAll:", this.links$);
     //this.cdr.detectChanges();
     // this.links$ = this.svc.getLinks();
     //.pipe(tap((ls) => console.log("clinks:", ls)));
