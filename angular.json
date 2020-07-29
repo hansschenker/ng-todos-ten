@@ -7,9 +7,12 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true,
-          "skipTests": true
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "skipTests": true,
+          "changeDetection": "OnPush",
+          "flat": false,
+          "export": true
         },
         "@schematics/angular:class": {
           "skipTests": true
@@ -46,13 +49,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -104,6 +102,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-todos-ten"
+    }
+  },
+  "defaultProject": "ng-todos-ten",
+  "cli": {
+    "analytics": "b928e502-95c6-4097-97b5-229abfc46ebd"
+  }
 }

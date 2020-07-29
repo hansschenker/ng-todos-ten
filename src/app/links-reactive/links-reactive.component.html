@@ -1,0 +1,24 @@
+<div>Add Link</div>
+<div>Links: link.value</div>
+<input
+  #link
+  type="text"
+  (change)="addLink({ id: 5, title: link.value }); link.value = null"
+/>
+<div *ngIf="vm$ | async as vm">
+  <pre> {{ vm.links[0] | json }} </pre>
+  <ul>
+    <li *ngFor="let link of vm.links">
+      <button (click)="deleteLink(link)">x</button>
+      <button (click)="detailLinkState.next(link)">&gt;</button>
+      <span>
+        {{ link.title }}
+      </span>
+    </li>
+  </ul>
+
+  <div style="margin-top: 1em;" *ngIf="vm.selectedLink">
+    {{ vm.selectedLink.id }} - {{ vm.selectedLink.title }}
+    <button (click)="closeDetailState.next()">close</button>
+  </div>
+</div>

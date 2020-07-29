@@ -1,0 +1,69 @@
+{
+  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" },
+  "categories": [
+    {
+      "id": 1,
+      "category": "Angular"
+    },
+    {
+      "id": 2,
+      "category": "Typescript"
+    },
+    {
+      "id": 3,
+      "category": "RxJs"
+    },
+    {
+      "id": 4,
+      "category": "NgRx"
+    },
+    {
+      "id": 5,
+      "category": "Xstate"
+    }
+  ],
+  "links": [
+    {
+      "id": 1,
+      "title": "Angular 1",
+      "category": "Angular",
+      "imageUrl": "/images/image.jpg",
+      "createdAt": "01.01.2020 | 09:00:00",
+      "author": "Alex Rickabaugh"
+    },
+    {
+      "id": 2,
+      "title": "Typecript 2",
+      "category": "Typescript",
+      "imageUrl": "/images/image.jpg",
+      "createdAt": "01.01.2020 | 09:00:00",
+      "author": "Alex Rickabaugh"
+    },
+    {
+      "id": 3,
+      "title": "RxJs 3",
+      "category": "RxJs",
+      "imageUrl": "/images/image.jpg",
+      "createdAt": "01.01.2020 | 09:00:00",
+      "author": "Kwinten Pisman"
+    },
+    {
+      "id": 4,
+      "title": "NgRx 4",
+      "category": "NgRx",
+      "imageUrl": "/images/image.jpg",
+      "createdAt": "01.01.2020 | 09:00:00",
+      "author": "Mike Ryan"
+    },
+    {
+      "id": 5,
+      "title": "Xstate 5",
+      "category": "Xstate",
+      "imageUrl": "/images/image.jpg",
+      "createdAt": "01.01.2020 | 09:00:00",
+      "author": "David Khourshid"
+    }
+  ]
+}
