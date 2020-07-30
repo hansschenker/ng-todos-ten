@@ -1,0 +1,20 @@
+ul {
+  list-style: none;
+  width: 250px;
+}
+li {
+  text-align: right;
+}
+span {
+  display: inline-block;
+  margin-left: 15px;
+}
+button {
+  width: 25px;
+}
+.content {
+  display: flex;
+}
+.container {
+  display: flex;
+}

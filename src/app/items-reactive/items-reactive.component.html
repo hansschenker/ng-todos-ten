@@ -1,0 +1,35 @@
+<div class="container">
+  <h3>Links</h3>
+  <div>Add Link</div>
+  <input
+    #link
+    type="text"
+    (change)="
+      idState.next(1); addState.next({ title: link.value }); link.value = null
+    "
+  />
+  <h3>Link List</h3>
+  <div class="content" *ngIf="vm$ | async as vm">
+    <!-- <pre> currentId {{ vm.currentId | json }} </pre> -->
+    <div>
+      <h3>vm as json</h3>
+      <pre> {{ vm | json }} </pre>
+    </div>
+
+    <ul>
+      <li *ngFor="let link of vm.items">
+        <button (click)="deleteState.next(link)">x</button>
+        <button (click)="detailState.next(link)">&gt;</button>
+        <span>
+          {{ link.title }}
+        </span>
+      </li>
+    </ul>
+
+    <div style="margin-top: 1em;" *ngIf="vm.selectedItem">
+      {{ vm.selectedItem.id }} - {{ vm.selectedItem.title }}
+      <button (click)="detailCloseState.next()">close</button>
+    </div>
+  </div>
+</div>
+<!-- container -->
