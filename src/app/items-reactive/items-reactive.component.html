@@ -2,10 +2,10 @@
   <h3>Links</h3>
   <div>Add Link</div>
   <input
-    #link
+    #item
     type="text"
     (change)="
-      idState.next(1); addState.next({ text: link.value }); link.value = null
+      idState.next(1); addState.next({ text: item.value }); item.value = null
     "
   />
   <h3>Link List</h3>
@@ -17,11 +17,11 @@
     </div>
 
     <ul>
-      <li *ngFor="let link of vm.items">
-        <button (click)="deleteState.next(link)">x</button>
-        <button (click)="detailState.next(link)">&gt;</button>
+      <li *ngFor="let item of vm.items">
+        <button (click)="deleteState.next(item)">x</button>
+        <button (click)="detailState.next(item)">&gt;</button>
         <span>
-          {{ link.text }}
+          {{ item.text }}
         </span>
       </li>
     </ul>
