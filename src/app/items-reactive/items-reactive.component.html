@@ -7,13 +7,7 @@
   <label>
     Link Category:
 
-    <input
-      #category
-      type="text"
-      (change)="
-        addState.next({ category: category.value }); category.value = null
-      "
-    />
+    <input #category type="text" />
   </label>
   <button
     (click)="
@@ -46,7 +40,8 @@
       <pre> {{ vm.selectedItem | json }} </pre>
     </div>
     <div style="margin-top: 1em;" *ngIf="vm.selectedItem">
-      {{ vm.selectedItem.id }} - {{ vm.selectedItem.text }}
+      {{ vm.selectedItem.id }} - {{ vm.selectedItem.text }} -
+      {{ vm.selectedItem.category }}
       <button (click)="detailCloseState.next()">close</button>
     </div>
   </div>

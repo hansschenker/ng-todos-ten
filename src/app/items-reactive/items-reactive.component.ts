@@ -5,15 +5,16 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+// api path
+import { environment } from "../../environments/environment";
 // rxjs
 import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
 import { map, scan, tap } from "rxjs/operators";
-import { environment } from "../../environments/environment";
 // generic items
 import { Item, Items, ViewModel } from "./Item";
 import { ItemsReactiveService } from "./items-reactive.service";
 // links
-type Link = { id: number; text: string; selectedItem: Item };
+type Link = Item;
 
 @Component({
   selector: "hs-items-reactive",
@@ -71,7 +72,8 @@ export class ItemsReactiveComponent {
     }))
   );
 
-  // add update
+  // add update (text, category, )
+  // todo: all fields for update
   private addUpdate$ = this.addState.pipe(
     tap((l: Item) => console.log("addUpdate$-Link:", l.text)),
     map((item: Item) => (vm: ViewModel<Link>) => ({
@@ -99,6 +101,6 @@ export class ItemsReactiveComponent {
     }))
   );
   private detailCloseUpdate$ = this.detailCloseState.pipe(
-    map((_) => (vm: ViewModel<Link>) => ({ ...vm, selectedLink: null }))
+    map((_) => (vm: ViewModel<Link>) => ({ ...vm, selectedItem: null }))
   );
 } // class
