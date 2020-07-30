@@ -11,8 +11,9 @@ import { environment } from "../../environments/environment";
 import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
 import { map, scan, tap } from "rxjs/operators";
 // generic items
-import { Item, Items, ViewModel } from "./Item";
+import { Item, Items, ViewModel } from "../shared/Item";
 import { ItemsReactiveService } from "./items-reactive.service";
+
 // links
 type Link = Item;
 
@@ -63,7 +64,7 @@ export class ItemsReactiveComponent {
     }))
   );
 
-  // id update
+  // id update when new item added on save
   private idUpdate$ = this.idState.pipe(
     tap((id) => console.log("addUpdate$-Id:", id)),
     map((id) => (vm: ViewModel<Link>) => ({
