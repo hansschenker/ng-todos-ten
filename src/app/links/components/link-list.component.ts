@@ -5,9 +5,9 @@ import {
   Input,
   ChangeDetectorRef,
 } from "@angular/core";
-import { Link } from "../state/link.model";
+// import { Link } from "../state/link.model";
 import { Observable } from "rxjs";
-
+type Link = { id: number; text: string };
 @Component({
   selector: "hs-link-list",
   template: `

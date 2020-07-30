@@ -9,7 +9,9 @@ import {
 import { LinkDataService } from "./state/link.data-service";
 import { tap } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
-import { Link } from "./state/link.model";
+//import { Link } from "./state/link.model";
+
+type Link = { id: number; text: string };
 
 @Component({
   selector: "hs-links",

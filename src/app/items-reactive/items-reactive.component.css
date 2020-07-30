@@ -10,11 +10,17 @@ span {
   margin-left: 15px;
 }
 button {
-  width: 25px;
+  width: 50px;
 }
 .content {
   display: flex;
 }
 .container {
   display: flex;
+}
+input {
+  width: 80px;
+}
+.selected {
+  border: 1px solid black;
 }

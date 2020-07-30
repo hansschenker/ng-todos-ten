@@ -12,7 +12,8 @@ import { environment } from "../../environments/environment";
 import { ItemsReactiveService } from "./items-reactive.service";
 // links
 import { Item, Items, ViewModel } from "./Item";
-import { Link } from "../links/state/link.model";
+// import { Link } from "../links/state/link.model";
+type Link = { id: number; text: string; selectedItem: Item };
 
 @Component({
   selector: "hs-items-reactive",
@@ -54,15 +55,16 @@ export class ItemsReactiveComponent {
   // all update
   private getAllUpdate$ = this.svc.getAll().pipe(
     tap((ls) => console.log("svc-getall-comp:", ls)),
-    map((links) => (vm: ViewModel<Link>) => ({
+    map((items: Link[]) => (vm: ViewModel<Link>) => ({
       ...vm,
-      items: links,
-      currentId: vm.currentId,
+      items: items,
+      currentId: items.length + 1,
     }))
   );
 
   // id update
   private idUpdate$ = this.idState.pipe(
+    tap((id) => console.log("addUpdate$-Id:", id)),
     map((id) => (vm: ViewModel<Link>) => ({
       ...vm,
       currentId: vm.currentId + id,
@@ -71,9 +73,10 @@ export class ItemsReactiveComponent {
 
   // add update
   private addUpdate$ = this.addState.pipe(
-    map((link) => (vm: ViewModel<Link>) => ({
+    tap((l: Item) => console.log("addUpdate$-Link:", l.text)),
+    map((item: Item) => (vm: ViewModel<Link>) => ({
       ...vm,
-      links: [...vm.items, { id: vm.currentId, text: link.title }],
+      items: [...vm.items, { id: vm.currentId, text: item.text }],
     }))
   );
 
@@ -81,12 +84,16 @@ export class ItemsReactiveComponent {
   private deleteUpdate$ = this.deleteState.pipe(
     map((link) => (vm: ViewModel<Link>) => ({
       ...vm,
-      links: vm.items.filter((l) => l.title !== link.title),
+      items: vm.items.filter((l) => l.text !== link.text),
     }))
   );
   // detail update
   private detailUpdate$ = this.detailState.pipe(
-    map((selectedLink) => (vm: ViewModel<Link>) => ({ ...vm, selectedLink }))
+    tap((l) => console.log("detailUpdate$-selectedLink", l)),
+    map((selectedLink) => (vm: ViewModel<Link>) => ({
+      ...vm,
+      selectedItem: selectedLink,
+    }))
   );
   private detailCloseUpdate$ = this.detailCloseState.pipe(
     map((_) => (vm: ViewModel<Link>) => ({ ...vm, selectedLink: null }))

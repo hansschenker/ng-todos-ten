@@ -1,7 +1,7 @@
-export interface Link {
-  id: number;
-  title: string;
-  category: string;
-  createdAt: string;
-  author: string;
-}
+// export interface Link {
+//   id: number;
+//   text: string;
+//   category?: string;
+//   createdAt?: string;
+//   author?: string;
+// }

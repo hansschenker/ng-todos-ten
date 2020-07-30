@@ -1,5 +1,5 @@
 {
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
+  "posts": [{ "id": 1, "text": "json-server", "author": "typicode" }],
   "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
   "profile": { "name": "typicode" },
   "categories": [
@@ -27,7 +27,7 @@
   "links": [
     {
       "id": 1,
-      "title": "Angular 1",
+      "text": "Angular 1",
       "category": "Angular",
       "imageUrl": "/images/image.jpg",
       "createdAt": "01.01.2020 | 09:00:00",
@@ -35,7 +35,7 @@
     },
     {
       "id": 2,
-      "title": "Typecript 2",
+      "text": "Typecript 2",
       "category": "Typescript",
       "imageUrl": "/images/image.jpg",
       "createdAt": "01.01.2020 | 09:00:00",
@@ -43,7 +43,7 @@
     },
     {
       "id": 3,
-      "title": "RxJs 3",
+      "text": "RxJs 3",
       "category": "RxJs",
       "imageUrl": "/images/image.jpg",
       "createdAt": "01.01.2020 | 09:00:00",
@@ -51,7 +51,7 @@
     },
     {
       "id": 4,
-      "title": "NgRx 4",
+      "text": "NgRx 4",
       "category": "NgRx",
       "imageUrl": "/images/image.jpg",
       "createdAt": "01.01.2020 | 09:00:00",
@@ -59,7 +59,7 @@
     },
     {
       "id": 5,
-      "title": "Xstate 5",
+      "text": "Xstate 5",
       "category": "Xstate",
       "imageUrl": "/images/image.jpg",
       "createdAt": "01.01.2020 | 09:00:00",

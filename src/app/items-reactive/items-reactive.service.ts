@@ -3,7 +3,10 @@ import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 // links as items
 import { Items, Item, ItemService } from "./Item";
-import { Link } from "../links/state/link.model";
+import { NumberFormatStyle } from "@angular/common";
+//import { Link } from "../links/state/link.model";
+
+type Link = { id: number; text: string };
 
 interface Links extends Items<Link> {}
 

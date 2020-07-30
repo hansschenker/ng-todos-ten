@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Link } from "../state/link.model";
+// import { Link } from "../state/link.model";
 
 @Component({
   selector: "hs-link-details",
@@ -13,7 +13,6 @@ import { Link } from "../state/link.model";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkDetailsComponent implements OnInit {
-  link: Link;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
