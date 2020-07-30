@@ -20,7 +20,11 @@ button {
 }
 input {
   width: 80px;
+  height: 40px;
 }
 .selected {
   border: 1px solid black;
 }
+/* label {
+  display: block;
+} */

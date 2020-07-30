@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
-// links as items
+
+// generic item definitions
 import { Items, Item, ItemService } from "./Item";
-import { NumberFormatStyle } from "@angular/common";
-//import { Link } from "../links/state/link.model";
 
-type Link = { id: number; text: string };
-
+type Link = Item;
 interface Links extends Items<Link> {}
 
 @Injectable({

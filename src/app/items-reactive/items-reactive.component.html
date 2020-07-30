@@ -1,14 +1,30 @@
 <div class="container">
-  <h3>Links</h3>
-  <div>Add Link</div>
-  <input
-    #item
-    type="text"
-    (change)="
-      idState.next(1); addState.next({ text: item.value }); item.value = null
+  <label>
+    Link Text:
+
+    <input #item type="text" />
+  </label>
+  <label>
+    Link Category:
+
+    <input
+      #category
+      type="text"
+      (change)="
+        addState.next({ category: category.value }); category.value = null
+      "
+    />
+  </label>
+  <button
+    (click)="
+      idState.next(1);
+      addState.next({ text: item.value, category: category.value });
+      item.value = null;
+      category.value = null
     "
-  />
-  <h3>Link List</h3>
+  >
+    Save Item
+  </button>
   <div class="content" *ngIf="vm$ | async as vm">
     <div>
       <pre> currentId {{ vm.currentId }} </pre>
@@ -21,7 +37,7 @@
         <button (click)="deleteState.next(item)">x</button>
         <button (click)="detailState.next(item)">&gt;</button>
         <span>
-          {{ item.text }}
+          {{ item | json }}
         </span>
       </li>
     </ul>

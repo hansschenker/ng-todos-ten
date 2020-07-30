@@ -4,15 +4,15 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+// rxjs
 import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
 import { map, scan, tap } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
-// items
+// generic items
+import { Item, Items, ViewModel } from "./Item";
 import { ItemsReactiveService } from "./items-reactive.service";
 // links
-import { Item, Items, ViewModel } from "./Item";
-// import { Link } from "../links/state/link.model";
 type Link = { id: number; text: string; selectedItem: Item };
 
 @Component({
@@ -76,7 +76,10 @@ export class ItemsReactiveComponent {
     tap((l: Item) => console.log("addUpdate$-Link:", l.text)),
     map((item: Item) => (vm: ViewModel<Link>) => ({
       ...vm,
-      items: [...vm.items, { id: vm.currentId, text: item.text }],
+      items: [
+        ...vm.items,
+        { id: vm.currentId, text: item.text, category: item.category },
+      ],
     }))
   );
 
