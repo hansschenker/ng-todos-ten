@@ -27,7 +27,7 @@ export class ItemsReactiveComponent {
   private baseUrl = environment.baseUrl;
 
   public vm$: Observable<ViewModel<Link>>;
-  // record states
+  // define all possible state changes and track them with Subject
   public idState = new BehaviorSubject<number>(0);
   public addState = new Subject<Link>();
   public deleteState = new Subject<Link>();
@@ -54,7 +54,7 @@ export class ItemsReactiveComponent {
     );
   } // constructor
 
-  // all update
+  // get all from backend
   private getAllUpdate$ = this.svc.getAll().pipe(
     tap((ls) => console.log("svc-getall-comp:", ls)),
     map((items: Link[]) => (vm: ViewModel<Link>) => ({
@@ -64,19 +64,16 @@ export class ItemsReactiveComponent {
     }))
   );
 
-  // id update when new item added on save
-  private idUpdate$ = this.idState.pipe(
-    tap((id) => console.log("addUpdate$-Id:", id)),
-    map((id) => (vm: ViewModel<Link>) => ({
-      ...vm,
-      currentId: vm.currentId + id,
-    }))
-  );
+  // id update from idState
+  private idUpdate$ = this.idState.pipe(map((id) => this.updateVmId));
+  private updateVmId = (vm: ViewModel<Link>) => ({
+    ...vm,
+    currentId: vm.currentId + 1,
+  });
 
-  // add update (text, category, )
+  // add update from addState
   // todo: all fields for update
   private addUpdate$ = this.addState.pipe(
-    tap((l: Item) => console.log("addUpdate$-Link:", l.text)),
     map((item: Item) => (vm: ViewModel<Link>) => ({
       ...vm,
       items: [
@@ -86,21 +83,21 @@ export class ItemsReactiveComponent {
     }))
   );
 
-  // delete update
+  // delete update from deleteState
   private deleteUpdate$ = this.deleteState.pipe(
     map((link) => (vm: ViewModel<Link>) => ({
       ...vm,
       items: vm.items.filter((l) => l.text !== link.text),
     }))
   );
-  // detail update
+  // detail update from detailSate
   private detailUpdate$ = this.detailState.pipe(
-    tap((l) => console.log("detailUpdate$-selectedLink", l)),
     map((selectedLink) => (vm: ViewModel<Link>) => ({
       ...vm,
       selectedItem: selectedLink,
     }))
   );
+  // detail closed update from detailState
   private detailCloseUpdate$ = this.detailCloseState.pipe(
     map((_) => (vm: ViewModel<Link>) => ({ ...vm, selectedItem: null }))
   );
