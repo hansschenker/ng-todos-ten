@@ -7,9 +7,9 @@ import { Component } from "@angular/core";
     <div style="text-align:center" class="content">
       <!-- <hs-counter></hs-counter> -->
       <!-- <hs-links-reactive></hs-links-reactive> -->
-      <hs-items-reactive></hs-items-reactive>
+      <!-- <hs-items-reactive></hs-items-reactive> -->
       <!-- <a routerLink="/links">Links</a> -->
-
+      <hs-todos></hs-todos>
       <router-outlet></router-outlet>
     </div>
   `,

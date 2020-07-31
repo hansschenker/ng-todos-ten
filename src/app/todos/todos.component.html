@@ -1,1 +1,49 @@
-<p>todos works!</p>
+<div class="container">
+  <label>
+    Link Text:
+
+    <input #item type="text" />
+  </label>
+  <label>
+    Link Category:
+
+    <input #category type="text" />
+  </label>
+  <button
+    (click)="
+      idState.next(1);
+      addState.next({ text: item.value, category: category.value });
+      item.value = null;
+      category.value = null
+    "
+  >
+    Save Item
+  </button>
+  <div class="content" *ngIf="vm$ | async as vm">
+    <div>
+      <pre> currentId {{ vm.currentId }} </pre>
+      <h3>vm.selectedItem as json</h3>
+      <pre> {{ vm.selectedItem | json }} </pre>
+    </div>
+
+    <ul>
+      <li *ngFor="let item of vm.items">
+        <button (click)="deleteState.next(item)">x</button>
+        <button (click)="detailState.next(item)">&gt;</button>
+        <span>
+          {{ item | json }}
+        </span>
+      </li>
+    </ul>
+    <div class="selected">
+      <h3>vm.selectedItem</h3>
+      <pre> {{ vm.selectedItem | json }} </pre>
+    </div>
+    <div style="margin-top: 1em;" *ngIf="vm.selectedItem">
+      {{ vm.selectedItem.id }} - {{ vm.selectedItem.text }} -
+      {{ vm.selectedItem.category }}
+      <button (click)="detailCloseState.next()">close</button>
+    </div>
+  </div>
+</div>
+<!-- container -->

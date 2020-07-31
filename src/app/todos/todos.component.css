@@ -1,0 +1,30 @@
+ul {
+  list-style: none;
+  width: 250px;
+}
+li {
+  text-align: right;
+}
+span {
+  display: inline-block;
+  margin-left: 15px;
+}
+button {
+  width: 50px;
+}
+.content {
+  display: flex;
+}
+.container {
+  display: flex;
+}
+input {
+  width: 80px;
+  height: 40px;
+}
+.selected {
+  border: 1px solid black;
+}
+/* label {
+    display: block;
+  } */
