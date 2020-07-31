@@ -7,6 +7,7 @@ import { CounterModule } from "./counter/counter.module";
 // import { LinksModule } from "./links/links.module";
 import { LinksReactiveModule } from "./links-reactive/links-reactive.module";
 import { ItemsReactiveModule } from "./items-reactive/items-reactive.module";
+import { TodosModule } from './todos/todos.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { ItemsReactiveModule } from "./items-reactive/items-reactive.module";
     LinksReactiveModule,
     AppRoutingModule,
     ItemsReactiveModule,
+    TodosModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

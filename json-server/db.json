@@ -65,5 +65,12 @@
       "createdAt": "01.01.2020 | 09:00:00",
       "author": "David Khourshid"
     }
+  ],
+  "todos": [
+    { "id": 1, "text": "Todo 1" },
+    { "id": 2, "text": "Todo 2" },
+    { "id": 3, "text": "Todo 3" },
+    { "id": 4, "text": "Todo 4" },
+    { "id": 5, "text": "Todo 5" }
   ]
 }
