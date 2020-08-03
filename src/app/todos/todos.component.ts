@@ -34,6 +34,8 @@ export class TodosComponent {
   public detailState = new Subject<Todo>();
   public detailCloseState = new Subject();
 
+  updateFn = (vm: ViewModel<Todo>): ViewModel<Todo> => this.updateFn(vm);
+
   constructor(private http: HttpClient, private svc: TodoService) {
     // merge update sources
     this.vm$ = merge(
@@ -44,13 +46,9 @@ export class TodosComponent {
       this.detailUpdate$,
       this.detailCloseUpdate$
     ).pipe(
-      scan(
-        (
-          oldVm: ViewModel<Todo>,
-          updateFn: (vm: ViewModel<Todo>) => ViewModel<Todo>
-        ) => updateFn(oldVm),
-        { items: [] } as ViewModel<Todo>
-      )
+      scan((oldVm: ViewModel<Todo>, updateFn) => updateFn(oldVm), {
+        items: [],
+      } as ViewModel<Todo>)
     );
   } // constructor
 
