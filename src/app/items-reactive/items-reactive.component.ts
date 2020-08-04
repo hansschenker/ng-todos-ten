@@ -55,7 +55,7 @@ export class ItemsReactiveComponent {
   } // constructor
 
   // get all from backend
-  private getAllUpdate$ = this.svc.getAll().pipe(
+  private getAllUpdate$ = this.svc.todos().pipe(
     tap((ls) => console.log("svc-getall-comp:", ls)),
     map((items: Link[]) => (vm: ViewModel<Link>) => ({
       ...vm,

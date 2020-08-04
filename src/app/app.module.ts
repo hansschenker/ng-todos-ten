@@ -8,6 +8,8 @@ import { CounterModule } from "./counter/counter.module";
 import { LinksReactiveModule } from "./links-reactive/links-reactive.module";
 import { ItemsReactiveModule } from "./items-reactive/items-reactive.module";
 import { TodosModule } from './todos/todos.module';
+import { StateModule } from './state/state.module';
+import { RxStateModule } from './rx-state/rx-state.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,8 @@ import { TodosModule } from './todos/todos.module';
     AppRoutingModule,
     ItemsReactiveModule,
     TodosModule,
+    StateModule,
+    RxStateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

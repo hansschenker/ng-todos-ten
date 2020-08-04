@@ -15,7 +15,7 @@ export class ItemsReactiveService implements ItemService<Link> {
   baseUrl = environment.baseUrl;
   endpoint = "/links";
   constructor(private http: HttpClient) {}
-  getAll<Links>() {
+  todos<Links>() {
     return this.http.get<Links>(this.baseUrl + this.endpoint);
   }
 }

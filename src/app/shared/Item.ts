@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+
 export interface Item {
   id: number;
   text: string;
@@ -10,7 +11,7 @@ export interface Item {
 }
 
 export interface Items<T> {
-  items: Item[];
+  items: T[];
 }
 
 export interface ViewModel<T> {
@@ -20,5 +21,5 @@ export interface ViewModel<T> {
 }
 
 export interface ItemService<T> {
-  getAll<T>(): Observable<T>;
+  items$<T>(): Observable<T>;
 }

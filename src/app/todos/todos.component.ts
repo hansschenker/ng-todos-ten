@@ -1,21 +1,28 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-} from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 // api path
 import { environment } from "../../environments/environment";
 // rxjs
-import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
+import { Observable, Subject, merge, BehaviorSubject, from } from "rxjs";
 import { map, scan, tap } from "rxjs/operators";
 // generic items
-import { Item, Items, ViewModel } from "../shared/Item";
+import { Item, ViewModel } from "../shared/Item";
 import { TodoService } from "./todo.service";
+import { Todo } from "./todo";
+// Generic State
+// --------------------------------------------------
+// import { State } from "../state/state";
+// import { Todo } from './todo';
+
+// const todos = [ {id: 0, text: ""} ]
+// const initalTodoState = {
+//   itemState: new BehaviorSubject<Todo[]>([]),
+//   itemCChange: from(todos)
+// }
+// const TodoState: State<Todo[]> = initalTodoState
 
 // todos
-type Todo = Item;
+// type Todo = Item;
 
 @Component({
   selector: "hs-todos",
@@ -27,33 +34,46 @@ export class TodosComponent {
   private baseUrl = environment.baseUrl;
 
   public vm$: Observable<ViewModel<Todo>>;
-  // define all possible state changes and track them with Subject
+
+  // data-state changes: getAll, newId, add, delete, detail,
+  // ----------------------------------------------------
   public idState = new BehaviorSubject<number>(0);
   public addState = new Subject<Todo>();
   public deleteState = new Subject<Todo>();
   public detailState = new Subject<Todo>();
+
+  // ui-state changes: loading, error, filter, paging, close detail
+  // ------------------------------------------------------
+  // loading
+  // error
+  // filter
+  // paging
   public detailCloseState = new Subject();
 
-  updateFn = (vm: ViewModel<Todo>): ViewModel<Todo> => this.updateFn(vm);
+  reducerFn = (vm: ViewModel<Todo>): ViewModel<Todo> => this.reducerFn(vm);
 
   constructor(private http: HttpClient, private svc: TodoService) {
-    // merge update sources
+    // merge ui-state updates and data-state updates
     this.vm$ = merge(
-      this.getAllUpdate$,
-      this.idUpdate$,
-      this.addUpdate$,
-      this.deleteUpdate$,
-      this.detailUpdate$,
-      this.detailCloseUpdate$
+      // data
+      this.dataChange$,
+      this.idChange$,
+      this.addChange$,
+      this.deleteChange$,
+      this.detailChange$,
+      // ui
+      this.detailCloseChange$
     ).pipe(
-      scan((oldVm: ViewModel<Todo>, updateFn) => updateFn(oldVm), {
+      scan((oldVm: ViewModel<Todo>, reducerFn) => reducerFn(oldVm), {
         items: [],
       } as ViewModel<Todo>)
     );
   } // constructor
 
+  // todos with state
+
   // get all from backend
-  private getAllUpdate$ = this.svc.getAll().pipe(
+  private dataChange$ = this.svc.todos().pipe(
     tap((ls) => console.log("svc-getall-comp:", ls)),
     map((items: Todo[]) => (vm: ViewModel<Todo>) => ({
       ...vm,
@@ -63,7 +83,7 @@ export class TodosComponent {
   );
 
   // id update from idState
-  private idUpdate$ = this.idState.pipe(map((id) => this.updateVmId));
+  private idChange$ = this.idState.pipe(map((id) => this.updateVmId));
   private updateVmId = (vm: ViewModel<Todo>) => ({
     ...vm,
     currentId: vm.currentId + 1,
@@ -71,7 +91,7 @@ export class TodosComponent {
 
   // add update from addState
   // todo: all fields for update
-  private addUpdate$ = this.addState.pipe(
+  private addChange$ = this.addState.pipe(
     map((item: Item) => (vm: ViewModel<Todo>) => ({
       ...vm,
       items: [
@@ -82,21 +102,21 @@ export class TodosComponent {
   );
 
   // delete update from deleteState
-  private deleteUpdate$ = this.deleteState.pipe(
+  private deleteChange$ = this.deleteState.pipe(
     map((link) => (vm: ViewModel<Todo>) => ({
       ...vm,
       items: vm.items.filter((l) => l.text !== link.text),
     }))
   );
   // detail update from detailSate
-  private detailUpdate$ = this.detailState.pipe(
+  private detailChange$ = this.detailState.pipe(
     map((selectedLink) => (vm: ViewModel<Todo>) => ({
       ...vm,
       selectedItem: selectedLink,
     }))
   );
   // detail closed update from detailState
-  private detailCloseUpdate$ = this.detailCloseState.pipe(
+  private detailCloseChange$ = this.detailCloseState.pipe(
     map((_) => (vm: ViewModel<Todo>) => ({ ...vm, selectedItem: null }))
   );
 } // class

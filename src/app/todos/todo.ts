@@ -1,5 +1,2 @@
-export interface Todo {
-  id: number;
-  text: string;
-  category?: string;
-}
+import { Item } from "../shared/Item";
+export interface Todo extends Item {}
