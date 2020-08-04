@@ -19,6 +19,10 @@
   >
     Save Item
   </button>
+  <div class="bordered loading" *ngIf="loadingState.getValue()">
+    Loading.....
+  </div>
+
   <div class="content" *ngIf="vm$ | async as vm">
     <div>
       <pre> currentId {{ vm.currentId }} </pre>

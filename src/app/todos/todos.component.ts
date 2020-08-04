@@ -3,26 +3,13 @@ import { HttpClient } from "@angular/common/http";
 // api path
 import { environment } from "../../environments/environment";
 // rxjs
-import { Observable, Subject, merge, BehaviorSubject, from } from "rxjs";
-import { map, scan, tap } from "rxjs/operators";
+import { Observable, Subject, merge, BehaviorSubject } from "rxjs";
+import { map, scan, tap, delay } from "rxjs/operators";
 // generic items
-import { Item, ViewModel } from "../shared/Item";
+import { ViewModel } from "../shared/Item";
 import { TodoService } from "./todo.service";
 import { Todo } from "./todo";
-// Generic State
-// --------------------------------------------------
-// import { State } from "../state/state";
-// import { Todo } from './todo';
-
-// const todos = [ {id: 0, text: ""} ]
-// const initalTodoState = {
-//   itemState: new BehaviorSubject<Todo[]>([]),
-//   itemCChange: from(todos)
-// }
-// const TodoState: State<Todo[]> = initalTodoState
-
-// todos
-// type Todo = Item;
+import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "hs-todos",
@@ -45,6 +32,8 @@ export class TodosComponent {
   // ui-state changes: loading, error, filter, paging, close detail
   // ------------------------------------------------------
   // loading
+  public loadingState = new BehaviorSubject<boolean>(false);
+
   // error
   // filter
   // paging
@@ -55,13 +44,14 @@ export class TodosComponent {
   constructor(private http: HttpClient, private svc: TodoService) {
     // merge ui-state updates and data-state updates
     this.vm$ = merge(
-      // data
+      // data changes
       this.dataChange$,
       this.idChange$,
       this.addChange$,
       this.deleteChange$,
       this.detailChange$,
-      // ui
+      // ui changes
+      this.loadingChange,
       this.detailCloseChange$
     ).pipe(
       scan((oldVm: ViewModel<Todo>, reducerFn) => reducerFn(oldVm), {
@@ -75,11 +65,19 @@ export class TodosComponent {
   // get all from backend
   private dataChange$ = this.svc.todos().pipe(
     tap((ls) => console.log("svc-getall-comp:", ls)),
+    tap(() => this.loadingState.next(true)),
+    delay(3000),
     map((items: Todo[]) => (vm: ViewModel<Todo>) => ({
       ...vm,
       items: items,
       currentId: items.length + 1,
-    }))
+    })),
+    tap(() => this.loadingState.next(false))
+  );
+
+  // locding State
+  private loadingChange = this.loadingState.pipe(
+    map((l) => (vm: ViewModel<Todo>) => ({ ...vm, loading: false }))
   );
 
   // id update from idState
@@ -92,7 +90,7 @@ export class TodosComponent {
   // add update from addState
   // todo: all fields for update
   private addChange$ = this.addState.pipe(
-    map((item: Item) => (vm: ViewModel<Todo>) => ({
+    map((item: Todo) => (vm: ViewModel<Todo>) => ({
       ...vm,
       items: [
         ...vm.items,

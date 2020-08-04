@@ -18,6 +18,8 @@ export interface ViewModel<T> {
   items: T[];
   selectedItem?: T;
   currentId: number;
+  loading: boolean;
+  error: string;
 }
 
 export interface ItemService<T> {
