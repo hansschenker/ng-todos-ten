@@ -1,0 +1,7 @@
+<div *ngIf="bands$ | async as bands">
+  <h3>Bands</h3>
+  <band-form></band-form>
+  <div *ngIf="vm.selectedItem">{{ vm?.selectedItem.text }}</div>
+  <!-- <pre> {{ bands$ | async | json }}  </pre> -->
+  <band-list (selectedBand)="bandSelected($event)" [bands]="bands"></band-list>
+</div>

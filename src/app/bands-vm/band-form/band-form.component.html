@@ -1,0 +1,13 @@
+<form #f [formGroup]="bandForm" (ngSubmit)="saveBand()">
+  <div>
+    Text:
+    <input #text type="text" formControlName="text" />
+  </div>
+  <div>
+    Text:
+    <input #category type="text" formControlName="category" />
+  </div>
+
+  <pre> {{ bandForm.value | json }} </pre>
+  <button type="submit" (click)="saveBand(f)">Save Band</button>
+</form>

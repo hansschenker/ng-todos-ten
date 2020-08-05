@@ -10,6 +10,8 @@ import { ItemsReactiveModule } from "./items-reactive/items-reactive.module";
 import { TodosModule } from './todos/todos.module';
 import { StateModule } from './state/state.module';
 import { RxStateModule } from './rx-state/rx-state.module';
+import { TodosVmModule } from './todos-vm/todos-vm.module';
+import { BandsVmModule } from './bands-vm/bands-vm.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,8 @@ import { RxStateModule } from './rx-state/rx-state.module';
     TodosModule,
     StateModule,
     RxStateModule,
+    TodosVmModule,
+    BandsVmModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 export interface Item {
   id: number;
   text: string;
+  titleName?: string;
   category?: string;
   url?: string;
   imageUrl?: string;
@@ -22,6 +23,6 @@ export interface ViewModel<T> {
   error: string;
 }
 
-export interface ItemService<T> {
-  items$<T>(): Observable<T>;
-}
+// export interface ItemService<T> {
+//   items<T>(): Observable<T>;
+// }

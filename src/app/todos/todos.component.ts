@@ -9,7 +9,6 @@ import { map, scan, tap, delay } from "rxjs/operators";
 import { ViewModel } from "../shared/Item";
 import { TodoService } from "./todo.service";
 import { Todo } from "./todo";
-import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "hs-todos",

@@ -72,5 +72,12 @@
     { "id": 3, "text": "Todo 3" },
     { "id": 4, "text": "Todo 4" },
     { "id": 5, "text": "Todo 5" }
+  ],
+  "bands": [
+    { "id": 1, "text": "This is Band 1", "titleName": "Band 1" },
+    { "id": 2, "text": "This is Band 2", "titleName": "Band 2" },
+    { "id": 3, "text": "This is Band 3", "titleName": "Band 3" },
+    { "id": 4, "text": "This is Band 4", "titleName": "Band 4" },
+    { "id": 5, "text": "This is Band 5", "titleName": "Band 5" }
   ]
 }

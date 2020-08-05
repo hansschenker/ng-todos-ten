@@ -9,9 +9,10 @@ import { Component } from "@angular/core";
       <!-- <hs-links-reactive></hs-links-reactive> -->
       <!-- <hs-items-reactive></hs-items-reactive> -->
       <!-- <a routerLink="/links">Links</a> -->
-      <hs-todos></hs-todos>
+      <!-- <hs-todos></hs-todos> -->
       <!-- <hs-counter></hs-counter>
       <app-counter></app-counter> -->
+      <bands-vm></bands-vm>
       <router-outlet></router-outlet>
     </div>
   `,
